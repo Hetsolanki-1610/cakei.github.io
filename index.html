@@ -22,6 +22,12 @@
         .img-cover {
             object-fit: cover;
         }
+        @media only screen and (max-width:395px){
+            .image img{
+                height: 20vh;
+            }
+
+        }
     </style>
 
 </head>
@@ -302,16 +308,16 @@
                 variants: [{ label: "1kg", add: 0 }, { label: "2kg", add: 350 }]
             },
             {
-                id: "Black Forest Oreo Cake 1 Kg Eggless",
-                title: "Black Forest Oreo Cake 1 Kg Eggless",
+                id: "Chocolate Fudge Cake 2 Kg",
+                title: "Chocolate Fudge Cake 2 Kg",
                 subtitle: "Cake Flavour- Black Forest",
                 price: 1309,
                 mrp: 1749,
                 images: [
-                    "https://static-assets-prod.fnp.com/images/pr/l/v20200207155509/black-forest-oreo-cake-1-kg-eggless_1.jpg",
-                    "https://static-assets-prod.fnp.com/images/pr/l/v20200207155405/black-forest-oreo-cake-1-kg-eggless_3.jpg",
-                    "https://static-assets-prod.fnp.com/images/pr/l/v20200207155405/black-forest-oreo-cake-1-kg-eggless_4.jpg",
-                    "https://static-assets-prod.fnp.com/images/pr/l/v20200207155406/black-forest-oreo-cake-1-kg-eggless_6.jpg"
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20221118185144/chocolate-fudge-cake-2-kg_1.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20221118185144/chocolate-fudge-cake-2-kg_2.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20221118185145/chocolate-fudge-cake-2-kg_5.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20221118185145/chocolate-fudge-cake-2-kg_3.jpg"
 
                 ],
                 desc: "Fresh strawberry puree layered with soft vanilla sponge and whipped cream. Perfect for celebrations.",
@@ -331,7 +337,7 @@
                 card.className = "bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col justify-between";
                 card.innerHTML = `
       <div>
-        <div class="relative h-50 ">
+        <div class="relative h-50 image ">
           <img src="${p.images[0]}" alt="${p.title}" class="w-full h-60 img-cover ">
           <div class="absolute top-3 right-3 bg-white/80 text-sm px-2 py-1 rounded-md font-semibold">${p.variants[0].label}</div>
         </div>

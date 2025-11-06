@@ -22,6 +22,9 @@
         .img-cover {
             object-fit: cover;
         }
+        .pad{
+            padding-le: -12px;
+        }
     </style>
 </head>
 
@@ -227,7 +230,7 @@
         const products = [
             {
                 id: "cake-rose",
-                title: "Red Velvet Celebration Cake",
+                title: "Red Velvet Celebrat Cake",
                 subtitle: "Rich red velvet with cream cheese frosting",
                 price: 899,
                 mrp: 999,
@@ -283,15 +286,32 @@
                 variants: [{ label: "500g", add: 0 }, { label: "2kg", add: 350 }]
             },
             {
-                id: "Velvety Sugar Free Truffle Cake",
-                title: "Velvety Sugar Free Truffle Cake",
-                subtitle: "Flavour: Sugar Free Chocolate",
-                price: 799,
-                mrp: 899,
+                id: "Black Forest Oreo Cake 1 Kg Eggless",
+                title: "Black Forest Oreo Cake 1 Kg Eggless",
+                subtitle: "Cake Flavour- Black Forest",
+                price:  1309,
+                mrp:1749,
                 images: [
-                    "https://static-assets-prod.fnp.com/images/pr/l/v20251014114928/velvety-sugar-free-truffle-cake_1.jpg",
-                    "https://static-assets-prod.fnp.com/images/pr/l/v20251014114928/velvety-sugar-free-truffle-cake_2.jpg",
-                    "https://static-assets-prod.fnp.com/images/pr/l/v20251014114931/velvety-sugar-free-truffle-cake_4.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20200207155509/black-forest-oreo-cake-1-kg-eggless_1.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20200207155405/black-forest-oreo-cake-1-kg-eggless_3.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20200207155405/black-forest-oreo-cake-1-kg-eggless_4.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20200207155406/black-forest-oreo-cake-1-kg-eggless_6.jpg"
+                    
+                ],
+                desc: "Fresh strawberry puree layered with soft vanilla sponge and whipped cream. Perfect for celebrations.",
+                variants: [{ label: "1kg", add: 0 }, { label: "2kg", add: 350 }]
+            },
+            {
+                id: "Black Forest Oreo Cake 1 Kg Eggless",
+                title: "Black Forest Oreo Cake 1 Kg Eggless",
+                subtitle: "Cake Flavour- Black Forest",
+                price:  1309,
+                mrp:1749,
+                images: [
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20200207155509/black-forest-oreo-cake-1-kg-eggless_1.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20200207155405/black-forest-oreo-cake-1-kg-eggless_3.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20200207155405/black-forest-oreo-cake-1-kg-eggless_4.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20200207155406/black-forest-oreo-cake-1-kg-eggless_6.jpg"
                     
                 ],
                 desc: "Fresh strawberry puree layered with soft vanilla sponge and whipped cream. Perfect for celebrations.",
@@ -304,45 +324,49 @@
         const orderModal = document.getElementById('orderModal');
 
         // render product cards
-        function renderProducts() {
-            productGrid.innerHTML = '';
-            products.forEach(p => {
-                const card = document.createElement('div');
-                card.className = "bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition";
-                card.innerHTML = `
-          <div class="relative h-56">
-            <img src="${p.images[0]}" alt="${p.title}" class="w-full h-full img-cover">
-            <div class="absolute top-3 right-3 bg-white/80 text-sm px-2 py-1 rounded-md font-semibold">${p.variants[0].label}</div>
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold">${p.title}</h4>
+       function renderProducts() {
+  productGrid.innerHTML = '';
+  products.forEach(p => {
+    const card = document.createElement('div');
+    card.className = "bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col justify-between";
+    card.innerHTML = `
+      <div>
+        <div class="relative h-56">
+          <img src="${p.images[0]}" alt="${p.title}" class="w-full h-full img-cover">
+          <div class="absolute top-3 right-3 bg-white/80 text-sm px-2 py-1 rounded-md font-semibold">${p.variants[0].label}</div>
+        </div>
+        <div class="p-4 flex flex-col justify-between h-44">
+          <div>
+            <h4 class="font-semibold text-gray-800">${p.title}</h4>
             <p class="text-sm text-gray-500 mt-1">${p.subtitle}</p>
-            <div class="mt-3 flex items-center justify-between">
-              <div>
-                <div class="text-lg font-bold text-pink-600">₹${p.price}</div>
-                <div class="text-xs text-gray-400 line-through">₹${p.mrp}</div>
-              </div>
-              <div class="flex flex-col gap-2">
-                <button class="buyBtn bg-pink-500 text-white px-3 py-2 rounded-md shadow" data-id="${p.id}">Buy</button>
-                <button class="viewBtn border px-3 py-2 rounded-md" data-id="${p.id}">View</button>
-              </div>
+          </div>
+          <div class="mt-3 flex items-center justify-between">
+            <div>
+              <div class="text-lg font-bold text-pink-600">₹${p.price}</div>
+              <div class="text-xs text-gray-400 line-through">₹${p.mrp}</div>
+            </div>
+            <div class="flex gap-2">
+              <button class="buyBtn bg-pink-500 text-white px-3 py-2 rounded-md shadow text-sm" data-id="${p.id}">Buy</button>
+              <button class="viewBtn border px-3 py-2 rounded-md text-sm" data-id="${p.id}">View</button>
             </div>
           </div>
-        `;
-                productGrid.appendChild(card);
-            });
+        </div>
+      </div>
+    `;
+    productGrid.appendChild(card);
+  });
 
-            // attach handlers
-            document.querySelectorAll('.viewBtn').forEach(b => {
-                b.addEventListener('click', (e) => openProduct(e.target.dataset.id));
-            });
-            document.querySelectorAll('.buyBtn').forEach(b => {
-                b.addEventListener('click', (e) => {
-                    openProduct(e.target.dataset.id);
-                    setTimeout(() => document.getElementById('buyNowBtn').click(), 200);
-                });
-            });
-        }
+  // attach handlers
+  document.querySelectorAll('.viewBtn').forEach(b => {
+    b.addEventListener('click', (e) => openProduct(e.target.dataset.id));
+  });
+  document.querySelectorAll('.buyBtn').forEach(b => {
+    b.addEventListener('click', (e) => {
+      openProduct(e.target.dataset.id);
+      setTimeout(() => document.getElementById('buyNowBtn').click(), 200);
+    });
+  });
+}
 
         // open overlay with product details
         function openProduct(id) {

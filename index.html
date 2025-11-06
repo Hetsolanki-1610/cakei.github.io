@@ -22,10 +22,8 @@
         .img-cover {
             object-fit: cover;
         }
-        .pad{
-            padding-le: -12px;
-        }
     </style>
+
 </head>
 
 <body class="bg-gray-50 text-gray-800 antialiased">
@@ -84,59 +82,61 @@
     </main>
 
     <!-- Product Page Overlay (flipkart style) -->
-  <!-- Product Page Overlay (fixed scrollable for mobile) -->
-<div id="productOverlay" class="fixed inset-0 hidden z-40">
-  <div class="absolute inset-0 dark-glass flex items-center justify-center p-3">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto">
-      <div class="flex flex-col md:flex-row">
-        <!-- Left Image Area -->
-        <div class="md:w-1/2 p-4 sticky top-0 bg-white">
-          <img id="overlayImg" src="" alt="" class="w-full h-64 md:h-96 rounded-xl img-cover shadow-lg">
-          <div id="thumbs" class="mt-3 flex gap-3 overflow-x-auto">
-            <!-- thumbs dynamically injected -->
-          </div>
-        </div>
+    <!-- Product Page Overlay (fixed scrollable for mobile) -->
+    <div id="productOverlay" class="fixed inset-0 hidden z-40">
+        <div class="absolute inset-0 dark-glass flex items-center justify-center p-3">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto">
+                <div class="flex flex-col md:flex-row">
+                    <!-- Left Image Area -->
+                    <div class="md:w-1/2 p-4 sticky top-0 bg-white">
+                        <img id="overlayImg" src="" alt="" class="w-full h-64 md:h-96 rounded-xl img-cover shadow-lg">
+                        <div id="thumbs" class="mt-3 flex gap-3 overflow-x-auto">
+                            <!-- thumbs dynamically injected -->
+                        </div>
+                    </div>
 
-        <!-- Right Info Area -->
-        <div class="md:w-1/2 p-5 flex flex-col">
-          <div class="flex justify-between items-start">
-            <div>
-              <h2 id="overlayTitle" class="text-2xl font-bold"></h2>
-              <p id="overlaySubtitle" class="text-sm text-gray-500 mt-1"></p>
+                    <!-- Right Info Area -->
+                    <div class="md:w-1/2 p-5 flex flex-col">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h2 id="overlayTitle" class="text-2xl font-bold"></h2>
+                                <p id="overlaySubtitle" class="text-sm text-gray-500 mt-1"></p>
+                            </div>
+                            <button id="closeOverlay"
+                                class="text-gray-400 hover:text-gray-700 text-3xl leading-none">&times;</button>
+                        </div>
+
+                        <div class="mt-4 flex items-center gap-4">
+                            <div class="text-3xl font-extrabold text-pink-600" id="overlayPrice"></div>
+                            <div class="text-sm text-gray-500 line-through" id="overlayMRP"></div>
+                        </div>
+
+                        <div class="mt-4 text-gray-700 text-sm leading-relaxed" id="overlayDesc"></div>
+
+                        <div class="mt-6">
+                            <label class="block text-sm text-gray-600">Choose Weight</label>
+                            <div id="variants" class="flex gap-2 mt-2 flex-wrap"></div>
+                        </div>
+
+                        <div class="mt-6 flex gap-3">
+                            <button id="buyNowBtn"
+                                class="bg-pink-500 text-white px-5 py-3 rounded-lg shadow hover:scale-105 transform transition">
+                                Buy Now
+                            </button>
+                            <button id="addToCart" class="border border-gray-200 px-4 py-3 rounded-lg">Add to
+                                Cart</button>
+                        </div>
+
+                        <div class="mt-6 flex-1"></div>
+
+                        <div class="pt-4 border-t px-1">
+                            <p class="text-sm text-gray-500">Fast delivery • Freshly baked • Customizable messages</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button id="closeOverlay" class="text-gray-400 hover:text-gray-700 text-3xl leading-none">&times;</button>
-          </div>
-
-          <div class="mt-4 flex items-center gap-4">
-            <div class="text-3xl font-extrabold text-pink-600" id="overlayPrice"></div>
-            <div class="text-sm text-gray-500 line-through" id="overlayMRP"></div>
-          </div>
-
-          <div class="mt-4 text-gray-700 text-sm leading-relaxed" id="overlayDesc"></div>
-
-          <div class="mt-6">
-            <label class="block text-sm text-gray-600">Choose Weight</label>
-            <div id="variants" class="flex gap-2 mt-2 flex-wrap"></div>
-          </div>
-
-          <div class="mt-6 flex gap-3">
-            <button id="buyNowBtn"
-              class="bg-pink-500 text-white px-5 py-3 rounded-lg shadow hover:scale-105 transform transition">
-              Buy Now
-            </button>
-            <button id="addToCart" class="border border-gray-200 px-4 py-3 rounded-lg">Add to Cart</button>
-          </div>
-
-          <div class="mt-6 flex-1"></div>
-
-          <div class="pt-4 border-t px-1">
-            <p class="text-sm text-gray-500">Fast delivery • Freshly baked • Customizable messages</p>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
 
     <!-- Order Form Modal -->
     <div id="orderModal" class="fixed inset-0 z-50 hidden">
@@ -280,7 +280,7 @@
                     "https://static-assets-prod.fnp.com/images/pr/l/v20251014114928/velvety-sugar-free-truffle-cake_1.jpg",
                     "https://static-assets-prod.fnp.com/images/pr/l/v20251014114928/velvety-sugar-free-truffle-cake_2.jpg",
                     "https://static-assets-prod.fnp.com/images/pr/l/v20251014114931/velvety-sugar-free-truffle-cake_4.jpg",
-                    
+
                 ],
                 desc: "Fresh strawberry puree layered with soft vanilla sponge and whipped cream. Perfect for celebrations.",
                 variants: [{ label: "500g", add: 0 }, { label: "2kg", add: 350 }]
@@ -289,14 +289,14 @@
                 id: "Black Forest Oreo Cake 1 Kg Eggless",
                 title: "Black Forest Oreo Cake 1 Kg Eggless",
                 subtitle: "Cake Flavour- Black Forest",
-                price:  1309,
-                mrp:1749,
+                price: 1309,
+                mrp: 1749,
                 images: [
                     "https://static-assets-prod.fnp.com/images/pr/l/v20200207155509/black-forest-oreo-cake-1-kg-eggless_1.jpg",
                     "https://static-assets-prod.fnp.com/images/pr/l/v20200207155405/black-forest-oreo-cake-1-kg-eggless_3.jpg",
                     "https://static-assets-prod.fnp.com/images/pr/l/v20200207155405/black-forest-oreo-cake-1-kg-eggless_4.jpg",
                     "https://static-assets-prod.fnp.com/images/pr/l/v20200207155406/black-forest-oreo-cake-1-kg-eggless_6.jpg"
-                    
+
                 ],
                 desc: "Fresh strawberry puree layered with soft vanilla sponge and whipped cream. Perfect for celebrations.",
                 variants: [{ label: "1kg", add: 0 }, { label: "2kg", add: 350 }]
@@ -305,14 +305,14 @@
                 id: "Black Forest Oreo Cake 1 Kg Eggless",
                 title: "Black Forest Oreo Cake 1 Kg Eggless",
                 subtitle: "Cake Flavour- Black Forest",
-                price:  1309,
-                mrp:1749,
+                price: 1309,
+                mrp: 1749,
                 images: [
                     "https://static-assets-prod.fnp.com/images/pr/l/v20200207155509/black-forest-oreo-cake-1-kg-eggless_1.jpg",
                     "https://static-assets-prod.fnp.com/images/pr/l/v20200207155405/black-forest-oreo-cake-1-kg-eggless_3.jpg",
                     "https://static-assets-prod.fnp.com/images/pr/l/v20200207155405/black-forest-oreo-cake-1-kg-eggless_4.jpg",
                     "https://static-assets-prod.fnp.com/images/pr/l/v20200207155406/black-forest-oreo-cake-1-kg-eggless_6.jpg"
-                    
+
                 ],
                 desc: "Fresh strawberry puree layered with soft vanilla sponge and whipped cream. Perfect for celebrations.",
                 variants: [{ label: "500g", add: 0 }, { label: "2kg", add: 350 }]
@@ -324,49 +324,49 @@
         const orderModal = document.getElementById('orderModal');
 
         // render product cards
-       function renderProducts() {
-  productGrid.innerHTML = '';
-  products.forEach(p => {
-    const card = document.createElement('div');
-    card.className = "bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col justify-between";
-    card.innerHTML = `
+        function renderProducts() {
+            productGrid.innerHTML = '';
+            products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col justify-between";
+                card.innerHTML = `
       <div>
-        <div class="relative h-56">
-          <img src="${p.images[0]}" alt="${p.title}" class="w-full h-full img-cover">
+        <div class="relative h-50 ">
+          <img src="${p.images[0]}" alt="${p.title}" class="w-full h-60 img-cover ">
           <div class="absolute top-3 right-3 bg-white/80 text-sm px-2 py-1 rounded-md font-semibold">${p.variants[0].label}</div>
         </div>
-        <div class="p-4 flex flex-col justify-between h-44">
+        <div class="p-2 flex flex-col  h-50">
           <div>
-            <h4 class="font-semibold text-gray-800">${p.title}</h4>
-            <p class="text-sm text-gray-500 mt-1">${p.subtitle}</p>
+            <h4 class="font-semibold text-gray-800 .cake-card h4">${p.title}</h4>
+            <p class="text-sm text-gray-500 mt-1  .cake-card p">${p.subtitle}</p>
           </div>
-          <div class="mt-3 flex items-center justify-between">
+          <div class="mt-2 flex items-center justify-between op  ">
             <div>
-              <div class="text-lg font-bold text-pink-600">₹${p.price}</div>
+              <div class="text-lg font-bold text-pink-600  ">₹${p.price}</div>
               <div class="text-xs text-gray-400 line-through">₹${p.mrp}</div>
             </div>
-            <div class="flex gap-2">
-              <button class="buyBtn bg-pink-500 text-white px-3 py-2 rounded-md shadow text-sm" data-id="${p.id}">Buy</button>
-              <button class="viewBtn border px-3 py-2 rounded-md text-sm" data-id="${p.id}">View</button>
+            <div class="flex gap-1 ">
+              <button class="buyBtn bg-pink-500 text-white px-2 py-2 rounded-md shadow text-sm" data-id="${p.id}">Buy</button>
+              <button class="viewBtn border px-2 py-2 rounded-md text-sm" data-id="${p.id}">View</button>
             </div>
           </div>
         </div>
       </div>
     `;
-    productGrid.appendChild(card);
-  });
+                productGrid.appendChild(card);
+            });
 
-  // attach handlers
-  document.querySelectorAll('.viewBtn').forEach(b => {
-    b.addEventListener('click', (e) => openProduct(e.target.dataset.id));
-  });
-  document.querySelectorAll('.buyBtn').forEach(b => {
-    b.addEventListener('click', (e) => {
-      openProduct(e.target.dataset.id);
-      setTimeout(() => document.getElementById('buyNowBtn').click(), 200);
-    });
-  });
-}
+            // attach handlers
+            document.querySelectorAll('.viewBtn').forEach(b => {
+                b.addEventListener('click', (e) => openProduct(e.target.dataset.id));
+            });
+            document.querySelectorAll('.buyBtn').forEach(b => {
+                b.addEventListener('click', (e) => {
+                    openProduct(e.target.dataset.id);
+                    setTimeout(() => document.getElementById('buyNowBtn').click(), 200);
+                });
+            });
+        }
 
         // open overlay with product details
         function openProduct(id) {
@@ -449,45 +449,45 @@
         });
 
         // form submit: prepare WhatsApp link
-      // form submit: prepare WhatsApp link
-document.getElementById('orderForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const pid = document.getElementById('orderProductId').value;
-    const p = products.find(x => x.id === pid);
-    const name = document.getElementById('custName').value.trim();
-    const phone = document.getElementById('custPhone').value.trim();
-    const addr = document.getElementById('custAddress').value.trim();
-    const qty = Number(document.getElementById('custQty').value) || 1;
-    const date = document.getElementById('custDate').value || 'ASAP';
-    const variant = selectedVariant ? selectedVariant.label : (p.variants[0].label);
+        // form submit: prepare WhatsApp link
+        document.getElementById('orderForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const pid = document.getElementById('orderProductId').value;
+            const p = products.find(x => x.id === pid);
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const addr = document.getElementById('custAddress').value.trim();
+            const qty = Number(document.getElementById('custQty').value) || 1;
+            const date = document.getElementById('custDate').value || 'ASAP';
+            const variant = selectedVariant ? selectedVariant.label : (p.variants[0].label);
 
-    const unitPrice = p.price + (selectedVariant ? (selectedVariant.add || 0) : 0);
-    const total = unitPrice * qty;
+            const unitPrice = p.price + (selectedVariant ? (selectedVariant.add || 0) : 0);
+            const total = unitPrice * qty;
 
-   // WhatsApp message with emojis
-const message = `🎉 *New Order Received!* 🎉%0A%0A🍰 *Product:* ${encodeURIComponent(p.title)}%0A🎨 *Variant:* ${encodeURIComponent(variant)}%0A📦 *Quantity:* ${qty}%0A💰 *Total Price:* ₹${total}%0A👤 *Name:* ${encodeURIComponent(name)}%0A📞 *Phone:* ${encodeURIComponent(phone)}%0A🏠 *Address:* ${encodeURIComponent(addr)}%0A🗓️ *Preferred Date:* ${encodeURIComponent(date)}%0A%0A✨ *Please confirm order & payment.* 💖`;
-const waURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+            // WhatsApp message with emojis
+            const message = `🎉 *New Order Received!* 🎉%0A%0A🍰 *Product:* ${encodeURIComponent(p.title)}%0A🎨 *Variant:* ${encodeURIComponent(variant)}%0A📦 *Quantity:* ${qty}%0A💰 *Total Price:* ₹${total}%0A👤 *Name:* ${encodeURIComponent(name)}%0A📞 *Phone:* ${encodeURIComponent(phone)}%0A🏠 *Address:* ${encodeURIComponent(addr)}%0A🗓️ *Preferred Date:* ${encodeURIComponent(date)}%0A%0A✨ *Please confirm order & payment.* 💖`;
+            const waURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
 
-    // Save order for QR later
-    lastOrder = { p, unitPrice, total, name };
+            // Save order for QR later
+            lastOrder = { p, unitPrice, total, name };
 
-    // Step 1: open WhatsApp automatically
-    window.open(waURL, "_blank");
+            // Step 1: open WhatsApp automatically
+            window.open(waURL, "_blank");
 
-    // Step 2: After WhatsApp opens, show QR automatically
-    setTimeout(() => {
-        const amount = lastOrder.total;
-        const upiId = MERCHANT_UPI_ID;
-        const upiPayload = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent('Het\'s Cake Bakery')}&am=${encodeURIComponent(amount)}&cu=INR&tn=${encodeURIComponent(lastOrder.p.title)}`;
-        const qrSrc = `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${encodeURIComponent(upiPayload)}`;
-        document.getElementById('qrImage').src = qrSrc;
-        document.getElementById('qrAmount').innerText = "₹" + amount;
-        document.getElementById('qrUpi').innerText = upiId;
-        document.getElementById('qrArea').classList.remove('hidden');
-        document.getElementById('waPreview').classList.add('hidden');
-        document.getElementById('orderStatus').innerText = "Scan to pay below 👇";
-    }, 2000);
-});
+            // Step 2: After WhatsApp opens, show QR automatically
+            setTimeout(() => {
+                const amount = lastOrder.total;
+                const upiId = MERCHANT_UPI_ID;
+                const upiPayload = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent('Het\'s Cake Bakery')}&am=${encodeURIComponent(amount)}&cu=INR&tn=${encodeURIComponent(lastOrder.p.title)}`;
+                const qrSrc = `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${encodeURIComponent(upiPayload)}`;
+                document.getElementById('qrImage').src = qrSrc;
+                document.getElementById('qrAmount').innerText = "₹" + amount;
+                document.getElementById('qrUpi').innerText = upiId;
+                document.getElementById('qrArea').classList.remove('hidden');
+                document.getElementById('waPreview').classList.add('hidden');
+                document.getElementById('orderStatus').innerText = "Scan to pay below 👇";
+            }, 2000);
+        });
 
 
         // initial render

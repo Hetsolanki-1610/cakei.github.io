@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="hi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Het's Cake Bakery — Premium Cakes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Small custom styles for nicer shadows & overlay */
+        .glass {
+            backdrop-filter: blur(6px) saturate(120%);
+            background: rgba(255, 255, 255, 0.55);
+        }
+
+        .dark-glass {
+            backdrop-filter: blur(6px) saturate(120%);
+            background: rgba(10, 10, 10, 0.6);
+        }
+
+        /* Smooth image fit */
+        .img-cover {
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-pink-500 to-yellow-400 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=80&auto=format&fit=crop&ixlib=rb-4.0.3&s=42ea4c8f7ab8f5e2a6d1b3d6f08b7b7b"
+                    alt="logo" class="w-12 h-12 rounded-lg shadow-lg object-cover">
+                <div>
+                    <h1 class="font-bold text-xl">Het's Cake Bakery</h1>
+                    <p class="text-sm opacity-90">Fresh • Premium • Homemade</p>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex gap-6 items-center">
+                <a class="hover:underline cursor-pointer">Products</a>
+                <a class="hover:underline cursor-pointer">About</a>
+                <a class="hover:underline cursor-pointer">Contact</a>
+                <button id="view-cart" class="bg-white text-pink-600 px-4 py-2 rounded-lg shadow">My Orders</button>
+            </nav>
+
+            <button class="md:hidden p-2 rounded-md" id="mobileMenuBtn" aria-label="menu">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 6h16M4 12h16M4 18h16" stroke="white" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="max-w-6xl mx-auto px-4 py-8">
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden grid md:grid-cols-2 gap-6 p-6 items-center">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-extrabold">Delicious Cakes. Freshly Baked Everyday.</h2>
+                <p class="mt-3 text-gray-600">Order your favourite cake — birthdays, anniversaries, ya daily treat.
+                    Click any product to open beautiful product page and order with WhatsApp + UPI QR option.</p>
+                <div class="mt-6 flex gap-3">
+                    <a href="#products"
+                        class="bg-pink-500 text-white px-4 py-2 rounded-lg shadow hover:scale-105 transform transition">Shop
+                        Cakes</a>
+                    <a href="#contact" class="border border-gray-200 px-4 py-2 rounded-lg">Contact</a>
+                </div>
+            </div>
+            <div class=" md:block">
+                <img src="https://media.istockphoto.com/id/526259891/photo/cake-display.jpg?s=612x612&w=0&k=20&c=-o0yToBC-ikohpFQu-gBCKS3KD51bjk6RDBj32jfMsg="
+                    alt="cakes" class="w-full h-64 rounded-xl object-cover shadow-lg">
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <main id="products" class="max-w-6xl mx-auto px-4 pb-20">
+        <h3 class="text-2xl font-bold mb-4">Our Bestsellers</h3>
+        <div id="productGrid" class="grid gap-6 grid-cols-2 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-3"></div>
+    </main>
+
+    <!-- Product Page Overlay (flipkart style) -->
+  <!-- Product Page Overlay (fixed scrollable for mobile) -->
+<div id="productOverlay" class="fixed inset-0 hidden z-40">
+  <div class="absolute inset-0 dark-glass flex items-center justify-center p-3">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto">
+      <div class="flex flex-col md:flex-row">
+        <!-- Left Image Area -->
+        <div class="md:w-1/2 p-4 sticky top-0 bg-white">
+          <img id="overlayImg" src="" alt="" class="w-full h-64 md:h-96 rounded-xl img-cover shadow-lg">
+          <div id="thumbs" class="mt-3 flex gap-3 overflow-x-auto">
+            <!-- thumbs dynamically injected -->
+          </div>
+        </div>
+
+        <!-- Right Info Area -->
+        <div class="md:w-1/2 p-5 flex flex-col">
+          <div class="flex justify-between items-start">
+            <div>
+              <h2 id="overlayTitle" class="text-2xl font-bold"></h2>
+              <p id="overlaySubtitle" class="text-sm text-gray-500 mt-1"></p>
+            </div>
+            <button id="closeOverlay" class="text-gray-400 hover:text-gray-700 text-3xl leading-none">&times;</button>
+          </div>
+
+          <div class="mt-4 flex items-center gap-4">
+            <div class="text-3xl font-extrabold text-pink-600" id="overlayPrice"></div>
+            <div class="text-sm text-gray-500 line-through" id="overlayMRP"></div>
+          </div>
+
+          <div class="mt-4 text-gray-700 text-sm leading-relaxed" id="overlayDesc"></div>
+
+          <div class="mt-6">
+            <label class="block text-sm text-gray-600">Choose Weight</label>
+            <div id="variants" class="flex gap-2 mt-2 flex-wrap"></div>
+          </div>
+
+          <div class="mt-6 flex gap-3">
+            <button id="buyNowBtn"
+              class="bg-pink-500 text-white px-5 py-3 rounded-lg shadow hover:scale-105 transform transition">
+              Buy Now
+            </button>
+            <button id="addToCart" class="border border-gray-200 px-4 py-3 rounded-lg">Add to Cart</button>
+          </div>
+
+          <div class="mt-6 flex-1"></div>
+
+          <div class="pt-4 border-t px-1">
+            <p class="text-sm text-gray-500">Fast delivery • Freshly baked • Customizable messages</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Order Form Modal -->
+    <div id="orderModal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 glass flex items-center justify-center p-6">
+            <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl p-6">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-bold">Place Your Order</h3>
+                    <button id="closeOrder" class="text-gray-400 hover:text-gray-700">&times;</button>
+                </div>
+
+                <form id="orderForm" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="hidden" id="orderProductId">
+                    <div>
+                        <label class="text-sm text-gray-600">Name</label>
+                        <input required id="custName" class="mt-1 block w-full border rounded-md px-3 py-2"
+                            placeholder="Your name">
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-600">Phone (WhatsApp)</label>
+                        <input required id="custPhone" class="mt-1 block w-full border rounded-md px-3 py-2"
+                            placeholder="eg. 91XXXXXXXXXX">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="text-sm text-gray-600">Address</label>
+                        <textarea required id="custAddress" class="mt-1 block w-full border rounded-md px-3 py-2"
+                            rows="2" placeholder="Delivery address"></textarea>
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-600">Quantity</label>
+                        <input type="number" min="1" value="1" required id="custQty"
+                            class="mt-1 block w-full border rounded-md px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-600"></label>You need it on this date</label>
+                        <input type="date" id="custDate" class="mt-1 block w-full border rounded-md px-3 py-2">
+                    </div>
+
+                    <div class="md:col-span-2 flex gap-3 items-center">
+                        <button type="submit" class="bg-pink-500 text-white px-5 py-3 rounded-lg shadow">Send via
+                            WhatsApp</button>
+                        <button type="button" id="showQRBtn" class="border px-4 py-3 rounded-lg">Show UPI QR</button>
+                        <div id="orderStatus" class="text-sm text-green-600"></div>
+                    </div>
+                </form>
+
+                <!-- WhatsApp link preview -->
+                <div id="waPreview" class="mt-4 hidden">
+                    <h4 class="font-semibold mb-2">WhatsApp message ready:</h4>
+                    <div id="waText" class="whitespace-pre-wrap bg-gray-50 p-3 rounded-md text-sm"></div>
+                </div>
+
+                <!-- QR area -->
+                <div id="qrArea" class="mt-4 hidden">
+                    <h4 class="font-semibold mb-2">Scan to Pay (UPI)</h4>
+                    <div class="flex gap-4 items-center">
+                        <img id="qrImage" src="" alt="UPI QR" class="w-40 h-40 bg-white rounded-md shadow">
+                        <div>
+                            <div class="text-sm text-gray-600">Amount: <span id="qrAmount"></span></div>
+                            <div class="text-sm text-gray-600">UPI ID: <span id="qrUpi"></span></div>
+                            <button id="closeQR" class="mt-3 bg-gray-100 px-3 py-2 rounded">Close QR</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-12 bg-white border-t">
+        <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-gray-500">© Het's Cake Bakery • Fresh baked happiness</p>
+            <div class="flex gap-3">
+                <a class="text-sm text-gray-600">Instagram</a>
+                <a class="text-sm text-gray-600">Facebook</a>
+                <a class="text-sm text-gray-600">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script: products + interactions -->
+    <script>
+        /* ===========
+           CONFIG - change these to your own values
+           ============ */
+        const WHATSAPP_NUMBER = "917698960192"; // Replace with your number WITHOUT + or spaces e.g. 919876543210
+        const MERCHANT_UPI_ID = "merchant@upi";  // Replace with your UPI id
+        /* ============ */
+
+        // Products array - add or modify products here
+        const products = [
+            {
+                id: "cake-rose",
+                title: "Red Velvet Celebration Cake",
+                subtitle: "Rich red velvet with cream cheese frosting",
+                price: 899,
+                mrp: 999,
+                images: [
+                    "https://bkmedia.bakingo.com/sq-red-velvet-fruit-cake0037refr-CCC.jpg",
+                    "https://avonbakers.com/wp-content/uploads/2020/03/WhatsApp-Image-2022-02-19-at-14.44.27.jpeg"
+                ],
+                desc: "Perfect for birthdays and parties. Layers of soft sponge and smooth cream cheese frosting.",
+                variants: [{ label: "1kg", add: 0 }, { label: "2kg", add: 350 }]
+            },
+            {
+                id: "cake-choco",
+                title: "Chocolate Truffle Cake",
+                subtitle: "Decadent chocolate lovers' dream",
+                price: 749,
+                mrp: 849,
+                images: [
+                    "https://www.fnp.com/images/pr/m/v300/velvety-chocolate-truffle-cakes-half-kg.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20250701155848/truffle-temptation-birthday-cake_1.jpg"
+                ],
+                desc: "Layered chocolate sponge, dark ganache, and fresh truffle pieces.",
+                variants: [{ label: "500g", add: 0 }, { label: "1kg", add: 300 }]
+            },
+            {
+                id: "cake-fruit",
+                title: "Fresh Fruit Cream Cake",
+                subtitle: "Light, fresh and topped with seasonal fruits",
+                price: 699,
+                mrp: 799,
+                images: [
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20190924145356/fresh-fruit-vanilla-cake-1-kg_1.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20190924145357/fresh-fruit-vanilla-cake-1-kg_2.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20190924145400/fresh-fruit-vanilla-cake-1-kg_6.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20190924145359/fresh-fruit-vanilla-cake-1-kg_5.jpg"
+
+                ],
+                desc: "Fresh cream layered with seasonal fruits — a classic choice for celebrations.",
+                variants: [{ label: "1kg", add: 0 }]
+            },
+            {
+                id: "Velvety Sugar Free Truffle Cake",
+                title: "Velvety Sugar Free Truffle Cake",
+                subtitle: "Flavour: Sugar Free Chocolate",
+                price: 799,
+                mrp: 899,
+                images: [
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20251014114928/velvety-sugar-free-truffle-cake_1.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20251014114928/velvety-sugar-free-truffle-cake_2.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20251014114931/velvety-sugar-free-truffle-cake_4.jpg",
+                    
+                ],
+                desc: "Fresh strawberry puree layered with soft vanilla sponge and whipped cream. Perfect for celebrations.",
+                variants: [{ label: "500g", add: 0 }, { label: "2kg", add: 350 }]
+            },
+            {
+                id: "Velvety Sugar Free Truffle Cake",
+                title: "Velvety Sugar Free Truffle Cake",
+                subtitle: "Flavour: Sugar Free Chocolate",
+                price: 799,
+                mrp: 899,
+                images: [
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20251014114928/velvety-sugar-free-truffle-cake_1.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20251014114928/velvety-sugar-free-truffle-cake_2.jpg",
+                    "https://static-assets-prod.fnp.com/images/pr/l/v20251014114931/velvety-sugar-free-truffle-cake_4.jpg",
+                    
+                ],
+                desc: "Fresh strawberry puree layered with soft vanilla sponge and whipped cream. Perfect for celebrations.",
+                variants: [{ label: "500g", add: 0 }, { label: "2kg", add: 350 }]
+            },
+        ];
+
+        const productGrid = document.getElementById('productGrid');
+        const overlay = document.getElementById('productOverlay');
+        const orderModal = document.getElementById('orderModal');
+
+        // render product cards
+        function renderProducts() {
+            productGrid.innerHTML = '';
+            products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition";
+                card.innerHTML = `
+          <div class="relative h-56">
+            <img src="${p.images[0]}" alt="${p.title}" class="w-full h-full img-cover">
+            <div class="absolute top-3 right-3 bg-white/80 text-sm px-2 py-1 rounded-md font-semibold">${p.variants[0].label}</div>
+          </div>
+          <div class="p-4">
+            <h4 class="font-semibold">${p.title}</h4>
+            <p class="text-sm text-gray-500 mt-1">${p.subtitle}</p>
+            <div class="mt-3 flex items-center justify-between">
+              <div>
+                <div class="text-lg font-bold text-pink-600">₹${p.price}</div>
+                <div class="text-xs text-gray-400 line-through">₹${p.mrp}</div>
+              </div>
+              <div class="flex flex-col gap-2">
+                <button class="buyBtn bg-pink-500 text-white px-3 py-2 rounded-md shadow" data-id="${p.id}">Buy</button>
+                <button class="viewBtn border px-3 py-2 rounded-md" data-id="${p.id}">View</button>
+              </div>
+            </div>
+          </div>
+        `;
+                productGrid.appendChild(card);
+            });
+
+            // attach handlers
+            document.querySelectorAll('.viewBtn').forEach(b => {
+                b.addEventListener('click', (e) => openProduct(e.target.dataset.id));
+            });
+            document.querySelectorAll('.buyBtn').forEach(b => {
+                b.addEventListener('click', (e) => {
+                    openProduct(e.target.dataset.id);
+                    setTimeout(() => document.getElementById('buyNowBtn').click(), 200);
+                });
+            });
+        }
+
+        // open overlay with product details
+        function openProduct(id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            document.getElementById('overlayImg').src = p.images[0];
+            document.getElementById('overlayTitle').innerText = p.title;
+            document.getElementById('overlaySubtitle').innerText = p.subtitle;
+            document.getElementById('overlayPrice').innerText = "₹" + p.price;
+            document.getElementById('overlayMRP').innerText = p.mrp ? "₹" + p.mrp : "";
+            document.getElementById('overlayDesc').innerText = p.desc;
+
+            // thumbs
+            const thumbs = document.getElementById('thumbs');
+            thumbs.innerHTML = '';
+            p.images.forEach(src => {
+                const t = document.createElement('img');
+                t.src = src;
+                t.className = 'w-20 h-14 rounded-md object-cover cursor-pointer shadow';
+                t.addEventListener('click', () => document.getElementById('overlayImg').src = src);
+                thumbs.appendChild(t);
+            });
+
+            // variants
+            const variants = document.getElementById('variants');
+            variants.innerHTML = '';
+            p.variants.forEach((v, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'border px-3 py-2 rounded-md text-sm';
+                btn.innerText = v.label + (v.add ? (" +₹" + v.add) : "");
+                btn.addEventListener('click', () => {
+                    // highlight
+                    variants.querySelectorAll('button').forEach(x => x.classList.remove('ring', 'ring-pink-300'));
+                    btn.classList.add('ring', 'ring-pink-300');
+                    // set active variant price (simple)
+                    selectedVariant = v;
+                });
+                if (i === 0) { btn.classList.add('ring', 'ring-pink-300'); selectedVariant = v; }
+                variants.appendChild(btn);
+            });
+
+            overlay.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+
+            // store current product id on buy button
+            document.getElementById('buyNowBtn').dataset.id = id;
+        }
+
+        document.getElementById('closeOverlay').addEventListener('click', () => {
+            overlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        });
+
+        // buy now opens order modal
+        let selectedVariant = null;
+        document.getElementById('buyNowBtn').addEventListener('click', (e) => {
+            const id = e.target.dataset.id;
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            // prefill order form
+            document.getElementById('orderProductId').value = id;
+            document.getElementById('custQty').value = 1;
+            document.getElementById('custDate').value = '';
+            document.getElementById('custName').value = '';
+            document.getElementById('custPhone').value = '';
+            document.getElementById('custAddress').value = '';
+            document.getElementById('orderStatus').innerText = "";
+            document.getElementById('waPreview').classList.add('hidden');
+            document.getElementById('qrArea').classList.add('hidden');
+
+            // set default qty and variant
+            if (!selectedVariant) selectedVariant = p.variants[0];
+
+            orderModal.classList.remove('hidden');
+        });
+
+        document.getElementById('closeOrder').addEventListener('click', () => {
+            orderModal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        });
+
+        // form submit: prepare WhatsApp link
+      // form submit: prepare WhatsApp link
+document.getElementById('orderForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const pid = document.getElementById('orderProductId').value;
+    const p = products.find(x => x.id === pid);
+    const name = document.getElementById('custName').value.trim();
+    const phone = document.getElementById('custPhone').value.trim();
+    const addr = document.getElementById('custAddress').value.trim();
+    const qty = Number(document.getElementById('custQty').value) || 1;
+    const date = document.getElementById('custDate').value || 'ASAP';
+    const variant = selectedVariant ? selectedVariant.label : (p.variants[0].label);
+
+    const unitPrice = p.price + (selectedVariant ? (selectedVariant.add || 0) : 0);
+    const total = unitPrice * qty;
+
+   // WhatsApp message with emojis
+const message = `🎉 *New Order Received!* 🎉%0A%0A🍰 *Product:* ${encodeURIComponent(p.title)}%0A🎨 *Variant:* ${encodeURIComponent(variant)}%0A📦 *Quantity:* ${qty}%0A💰 *Total Price:* ₹${total}%0A👤 *Name:* ${encodeURIComponent(name)}%0A📞 *Phone:* ${encodeURIComponent(phone)}%0A🏠 *Address:* ${encodeURIComponent(addr)}%0A🗓️ *Preferred Date:* ${encodeURIComponent(date)}%0A%0A✨ *Please confirm order & payment.* 💖`;
+const waURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+
+    // Save order for QR later
+    lastOrder = { p, unitPrice, total, name };
+
+    // Step 1: open WhatsApp automatically
+    window.open(waURL, "_blank");
+
+    // Step 2: After WhatsApp opens, show QR automatically
+    setTimeout(() => {
+        const amount = lastOrder.total;
+        const upiId = MERCHANT_UPI_ID;
+        const upiPayload = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent('Het\'s Cake Bakery')}&am=${encodeURIComponent(amount)}&cu=INR&tn=${encodeURIComponent(lastOrder.p.title)}`;
+        const qrSrc = `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${encodeURIComponent(upiPayload)}`;
+        document.getElementById('qrImage').src = qrSrc;
+        document.getElementById('qrAmount').innerText = "₹" + amount;
+        document.getElementById('qrUpi').innerText = upiId;
+        document.getElementById('qrArea').classList.remove('hidden');
+        document.getElementById('waPreview').classList.add('hidden');
+        document.getElementById('orderStatus').innerText = "Scan to pay below 👇";
+    }, 2000);
+});
+
+
+        // initial render
+        renderProducts();
+
+        // mobile menu (simple)
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            alert('Mobile menu: add links as needed (this is demo).');
+        });
+
+        // prevent body scroll when overlay open
+        // already handled via class toggles
+
+        // Optional: deep link open product via hash #product-<id>
+        if (location.hash.startsWith('#p-')) {
+            const id = location.hash.replace('#p-', '');
+            setTimeout(() => openProduct(id), 300);
+        }
+
+    </script>
+</body>
+
+</html>
